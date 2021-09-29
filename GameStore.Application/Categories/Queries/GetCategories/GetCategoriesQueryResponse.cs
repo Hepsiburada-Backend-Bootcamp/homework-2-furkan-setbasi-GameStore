@@ -8,7 +8,7 @@ namespace GameStore.Application.Categories.Queries.GetCategories
 {
   public class GetCategoriesQueryResponse
   {
-    //public Guid Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
   }
 }
