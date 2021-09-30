@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Categories.Commands.UpdateCategory
+namespace GameStore.Application.Games.Queries.SharedSubFields
 {
-  public class UpdateCategoryDto
+  public class DeveloperDto
   {
+    public Guid Id { get; set; }
     public string Name { get; set; }
+    public string Country { get; set; }
   }
 }

@@ -17,6 +17,8 @@ namespace GameStore.Infrastructure
     {
       services.AddDbContext<GameStoreDbContext>(options => options.UseInMemoryDatabase("GameStoreDb"));
       services.AddScoped<ICategoryRepository, CategoryRepository>();
+      services.AddScoped<IGameRepository, GameRepository>();
+
 
       return services;
     }

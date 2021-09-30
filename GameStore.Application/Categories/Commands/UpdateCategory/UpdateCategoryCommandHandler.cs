@@ -23,7 +23,7 @@ namespace GameStore.Application.Categories.Commands.UpdateCategory
 
     public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-      Category categoryToUpdate = _categoryRepository.GetByIdAsync(request.Id, cancellationToken).Result;
+      Category categoryToUpdate = await _categoryRepository.GetByIdAsync(request.Id, cancellationToken);
 
       if(categoryToUpdate is null)
       {

@@ -43,13 +43,9 @@ namespace GameStore.API.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Unit>> Put(Guid id, [FromBody] UpdateCategoryDto category)
+    public async Task<ActionResult<Unit>> Put(Guid id, [FromBody] UpdateCategoryCommand command)
     {
-      UpdateCategoryCommand command = new UpdateCategoryCommand()
-      {
-        Id = id,
-        Name = category.Name
-      };
+      command.Id = id;
 
       return await Mediator.Send(command);
     }

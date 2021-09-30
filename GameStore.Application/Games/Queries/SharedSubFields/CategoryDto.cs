@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Domain.Entities
+namespace GameStore.Application.Games.Queries.SharedSubFields
 {
-  public class Category
+  public class CategoryDto
   {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public ICollection<Game> Games { get; set; }
   }
 }
