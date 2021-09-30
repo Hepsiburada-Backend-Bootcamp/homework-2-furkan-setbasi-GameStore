@@ -13,8 +13,9 @@ namespace GameStore.Application.Games.Commands.CreateGame
     {
       RuleFor(command => command.Name)
         .NotEmpty()
-        .MinimumLength(2)
-        .WithMessage("Name must be longer than 2");
+        .MinimumLength(2).WithMessage("Name must be longer than 2")
+        .MaximumLength(20).WithMessage("Name must be shorter than 20");
+
 
       RuleFor(command => command.Price)
         .GreaterThan(0).WithMessage("Price must be greater than 0");
