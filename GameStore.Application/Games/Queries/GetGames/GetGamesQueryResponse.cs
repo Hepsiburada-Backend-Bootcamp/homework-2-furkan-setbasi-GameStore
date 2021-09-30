@@ -1,4 +1,4 @@
-﻿using GameStore.Application.Games.Queries.SharedSubFields;
+﻿using GameStore.Application.DTOs;
 using GameStore.Domain.Entities;
 using System;
 using System.Collections.Generic;

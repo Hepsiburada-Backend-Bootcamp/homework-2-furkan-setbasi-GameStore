@@ -23,12 +23,17 @@ namespace GameStore.Infrastructure.Data.Repositories
 
     public Task<List<Category>> GetAllAsync(CancellationToken cancellationToken)
     {
-      return _dbContext.Categories.ToListAsync(cancellationToken);
+      return _dbContext.Categories
+        .Include(category => category.Games)
+        .ToListAsync(cancellationToken);
     }
 
     public async Task<Category> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-      Category category = await _dbContext.Categories.SingleOrDefaultAsync(category => category.Id == id, cancellationToken);
+      Category category = await _dbContext.Categories
+        .Include(category => category.Games)
+        .SingleOrDefaultAsync(category => category.Id == id, cancellationToken);
+
       return category;
     }
 

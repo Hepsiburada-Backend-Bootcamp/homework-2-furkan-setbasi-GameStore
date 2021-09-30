@@ -39,12 +39,18 @@ namespace GameStore.Infrastructure.Data.Repositories
 
     public Task<List<Game>> GetAllAsync(CancellationToken cancellationToken)
     {
-      return _dbContext.Games.ToListAsync(cancellationToken);
+      return _dbContext.Games
+        .Include(game => game.Developer)
+        .Include(game => game.Categories)
+        .ToListAsync(cancellationToken);
     }
 
     public async Task<Game> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-      Game game = await _dbContext.Games.SingleOrDefaultAsync(game => game.Id == id, cancellationToken);
+      Game game = await _dbContext.Games
+        .Include(game => game.Developer)
+        .Include(game => game.Categories)
+        .SingleOrDefaultAsync(game => game.Id == id, cancellationToken);
       return game;
     }
 

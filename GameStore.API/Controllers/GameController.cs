@@ -17,7 +17,6 @@ namespace GameStore.API.Controllers
   [ApiController]
   public class GameController : ApiControllerBase
   {
-    public object DeletGameCommand { get; private set; }
 
     [HttpGet]
     public async Task<ActionResult<List<GetGamesQueryResponse>>> Get()

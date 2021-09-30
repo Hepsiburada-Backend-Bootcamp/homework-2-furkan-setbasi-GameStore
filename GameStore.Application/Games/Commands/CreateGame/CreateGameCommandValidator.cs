@@ -12,9 +12,9 @@ namespace GameStore.Application.Games.Commands.CreateGame
     public CreateGameCommandValidator()
     {
       RuleFor(command => command.Name)
+        .NotEmpty()
         .MinimumLength(2)
-        .WithMessage("Name must be longer than 2")
-        .When(command => command.Name != string.Empty);
+        .WithMessage("Name must be longer than 2");
 
       RuleFor(command => command.Price)
         .GreaterThan(0).WithMessage("Price must be greater than 0");
