@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,13 @@ namespace GameStore.API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddSingleton(Log.Logger);
+
       services.AddApplication();
       services.AddInfrastructure();
 
-      services.AddControllers(options => 
+
+      services.AddControllers(options =>
       options.Filters.Add<ApiExceptionFilterAttribute>())
         .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
 
@@ -50,6 +54,8 @@ namespace GameStore.API
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameStore.API v1"));
       }
+
+      app.UseSerilogRequestLogging();
 
       app.UseRouting();
 

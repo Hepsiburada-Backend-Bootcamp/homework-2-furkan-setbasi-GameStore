@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,16 @@ namespace GameStore.API.Filters
   public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
   {
     private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
+    private readonly ILogger _logger;
 
-    public ApiExceptionFilterAttribute()
+    public ApiExceptionFilterAttribute(ILogger logger)
     {
       _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
       {
         { typeof(ValidationException), HandleValidationException },
         { typeof(NotFoundException), HandleNotFoundException },
       };
+      _logger = logger;
     }
 
     public override void OnException(ExceptionContext context)
@@ -59,6 +62,8 @@ namespace GameStore.API.Filters
       context.Result = new BadRequestObjectResult(details);
 
       context.ExceptionHandled = true;
+
+      _logger.Error(context.Exception, "Validation Exception Occured!");
     }
 
     private void HandleInvalidModelStateException(ExceptionContext context)
@@ -71,6 +76,9 @@ namespace GameStore.API.Filters
       context.Result = new BadRequestObjectResult(details);
 
       context.ExceptionHandled = true;
+
+      _logger.Error(context.Exception, "Invalid Model State Exception Occured!");
+
     }
 
     private void HandleNotFoundException(ExceptionContext context)
@@ -87,6 +95,9 @@ namespace GameStore.API.Filters
       context.Result = new NotFoundObjectResult(details);
 
       context.ExceptionHandled = true;
+
+      _logger.Error(exception, "Not Found Exception Occured!");
+
     }
 
     private void HandleUnknownException(ExceptionContext context)
@@ -105,6 +116,8 @@ namespace GameStore.API.Filters
       };
 
       context.ExceptionHandled = true;
+
+      _logger.Error(context.Exception, "Unknown Exception Occured!");
     }
   }
 }
