@@ -1,4 +1,5 @@
-﻿using GameStore.Application.Games.Commands.CreateGame;
+﻿using GameStore.Application.Games.Commands.AddCategory;
+using GameStore.Application.Games.Commands.CreateGame;
 using GameStore.Application.Games.Commands.DeleteGame;
 using GameStore.Application.Games.Commands.UpdateGame;
 using GameStore.Application.Games.Queries.GetGameById;
@@ -40,6 +41,14 @@ namespace GameStore.API.Controllers
     {
       Guid createdGameId = await Mediator.Send(command);
       return Created(new Uri($"{Request.Path}/{createdGameId}", UriKind.Relative), new { createdGameId });
+    }
+
+    [HttpPost("{id}/categories")]
+    public async Task<IActionResult> CreateCategory(Guid id, AddCategoryToGameCommand command)
+    {
+      command.Id = id;
+      await Mediator.Send(command);
+      return NoContent();
     }
 
     [HttpPut]

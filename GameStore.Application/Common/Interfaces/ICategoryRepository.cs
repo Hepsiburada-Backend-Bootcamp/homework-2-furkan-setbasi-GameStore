@@ -15,9 +15,9 @@ namespace GameStore.Application.Common.Interfaces
   {
     Task<List<Category>> GetAllAsync(CancellationToken cancellationToken);
     Task<Category> GetByIdAsync(Guid id, CancellationToken cancellation);
+    Task<Category> GetByNameAsync(string name, CancellationToken cancellationToken);
     Task<Guid> CreateAsync(Category category, CancellationToken cancellationToken);
     Task<Unit> UpdateAsync(Category category, UpdateCategoryCommand request, CancellationToken cancellation);
-
     Task<Unit> DeleteAsync(Category category, CancellationToken cancellationToken);
   }
 }

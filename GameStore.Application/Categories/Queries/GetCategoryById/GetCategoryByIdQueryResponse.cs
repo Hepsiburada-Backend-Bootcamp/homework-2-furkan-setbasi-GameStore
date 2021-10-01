@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameStore.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace GameStore.Application.Categories.Queries.GetCategoryById
   {
     public Guid Id { get; set; }
     public string Name { get; set; }
+    public ICollection<GameDto> Games { get; set; }
+
   }
 }

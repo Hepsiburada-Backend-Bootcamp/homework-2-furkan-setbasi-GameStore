@@ -37,6 +37,15 @@ namespace GameStore.Infrastructure.Data.Repositories
       return category;
     }
 
+    public async Task<Category> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+      Category category = await _dbContext.Categories.Where(category => category.Name == name)
+        .Include(category => category.Games)
+        .SingleOrDefaultAsync(cancellationToken);
+
+      return category;
+    }
+
     public async Task<Guid> CreateAsync(Category category, CancellationToken cancellationToken)
     {
       await _dbContext.Categories.AddAsync(category, cancellationToken);

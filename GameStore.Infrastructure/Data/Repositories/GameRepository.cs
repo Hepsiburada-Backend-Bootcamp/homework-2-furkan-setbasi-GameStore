@@ -29,6 +29,13 @@ namespace GameStore.Infrastructure.Data.Repositories
       return game.Id;
     }
 
+    public async Task<Unit> AddCategoryAsync(Game game, Category category, CancellationToken cancellationToken)
+    {
+      game.Categories.Add(category);
+      await _dbContext.SaveChangesAsync(cancellationToken);
+      return Unit.Value;
+    }
+
     public async Task<Unit> DeleteAsync(Game game, CancellationToken cancellationToken)
     {
       _dbContext.Games.Remove(game);
