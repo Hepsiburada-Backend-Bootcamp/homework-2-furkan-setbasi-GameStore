@@ -1,4 +1,4 @@
-# GameStore (Work in Progress)
+# GameStore
 
 Patika-Hepsiburada Backend Bootcamp Homework 2.
 
